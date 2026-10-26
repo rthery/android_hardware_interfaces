@@ -77,9 +77,9 @@ int main(int /* argc */, char* /* argv */ []) {
 
     if (::android::ProcessState::isVndservicemanagerEnabled()) {
         ::android::ProcessState::initWithDriver("/dev/vndbinder");
-        ::android::ProcessState::self()->startThreadPool();
     }
 
+    // Size the shared pool before starting it: libbinder aborts if it shrinks afterwards.
     ABinderProcess_setThreadPoolMaxThreadCount(1);
     ABinderProcess_startThreadPool();
 
